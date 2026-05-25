@@ -93,22 +93,6 @@ paper/
 
 Requires: `pandoc` (`brew install pandoc` or `apt install pandoc`).
 
-## Other AI Assistants
-
-**Codex:**
-
-```bash
-mkdir -p "$CODEX_HOME/skills"
-cp -R research-paper-writer "$CODEX_HOME/skills/"
-```
-
-**Gemini:**
-
-```bash
-mkdir -p "$HOME/.gemini/skills"
-cp -R research-paper-writer "$HOME/.gemini/skills/"
-```
-
 ## Credits
 
 Core writing methodology by Prof. Peng Sida (彭思达).
