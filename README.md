@@ -1,4 +1,4 @@
-# Skills: Research Paper Writing
+# Skills: Research Paper Writer
 
 > **Attribution**
 > Most writing knowledge and methodology in this repository comes from Prof. Peng Sida (彭思达)'s open study notes:
