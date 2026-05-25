@@ -1,85 +1,118 @@
 # Skills: Research Paper Writing
 
-[中文介绍](./README_zh.md).
-
-> Important Attribution
+> **Attribution**
 > Most writing knowledge and methodology in this repository comes from Prof. Peng Sida (彭思达)'s open study notes:
 > https://pengsida.notion.site/c1a22465a0fa4b15a12985223916048e
-> Prof. Peng's original repository:
-> https://github.com/pengsida/learning_research
-> I sincerely thank Prof. Peng for openly sharing these valuable experiences.
-> My contribution is organization, structured adaptation, and packaging as reusable Skills.
+> Original repository: https://github.com/pengsida/learning_research
+>
+> This fork restructures the material as an orchestrated Claude Code skill (`research-paper-writer`) with a 7-phase workflow, paper template, and subagents.
 
 ## Repository Overview
 
-This repository currently provides one skill package:
+This repository provides one skill package:
 
-- `research-paper-writing/`
-  - `SKILL.md`: core workflow and usage rules
-  - `references/`: section-specific writing guides and templates
-  - `agents/openai.yaml`: agent metadata
+### `research-paper-writer/`
+
+End-to-end paper writing workflow. Use when starting a new paper or managing a full paper project from blank to Overleaf export.
+
+- `SKILL.md`: 7-phase orchestration workflow
+- `grill-me.md`: structured interview to build shared paper understanding before writing
+- `paper-structure.md`: paper folder conventions and usage
+- `references/`: section-specific writing guides and templates (Abstract, Introduction, Method, Experiments, Conclusion, and more)
+- `agents/index-builder.md`: subagent that reads source PDFs and builds a reference index
+- `paper-template/`: ready-to-copy paper project scaffold (main.tex, section stubs, pandoc scripts)
 
 Typical use cases:
-
-- Drafting or rewriting Abstract / Introduction / Method / Experiments / Conclusion
-- Improving paragraph flow and section logic
-- Checking claim-evidence alignment
-- Running pre-submission self-review from a reviewer mindset
+- Starting a new paper from scratch with a structured interview phase
+- Managing a paper project with `sections_md/` as the source of truth and `sections/` as generated LaTeX
+- Auto-building a reference index from arXiv PDFs in `paper/docs/`
+- Converting markdown sections to LaTeX via pandoc and exporting a zip for Overleaf
 
 ## Installation
 
-Assume you are in the repository root.
+**Prerequisites:** [Claude Code](https://claude.ai/code) CLI installed and authenticated.
 
-### 1) Codex
-
-Copy the skill into `$CODEX_HOME/skills/`:
+### Step 1 — Clone the repository
 
 ```bash
-mkdir -p "$CODEX_HOME/skills"
-cp -R research-paper-writing "$CODEX_HOME/skills/"
+git clone https://github.com/chirpishere/Research-Paper-Writer.git
+cd Research-Paper-Writer
 ```
 
-Usage example:
+### Step 2 — Copy the skill to your Claude Code installation
 
-```text
-Use $research-paper-writing to improve my paper's Introduction.
-```
-
-### 2) CC (Claude Code)
-
-Use either a global or project-level installation.
-
-Global:
+**Global** (available in all projects):
 
 ```bash
 mkdir -p "$HOME/.claude/skills"
-cp -R research-paper-writing "$HOME/.claude/skills/"
+cp -R research-paper-writer "$HOME/.claude/skills/"
 ```
 
-Project-level:
+**Project-level** (available only in the current project):
 
 ```bash
 mkdir -p .claude/skills
-cp -R research-paper-writing .claude/skills/
+cp -R research-paper-writer .claude/skills/
 ```
 
-In prompts, explicitly request this skill, for example: `Please use the research-paper-writing skill`.
+### Step 3 — Verify
 
-### 3) Gemini
+Restart Claude Code. The skill appears automatically — no further configuration needed.
 
-Copy this skill into your Gemini skills directory:
+## Usage
+
+In your Claude Code prompt:
+
+```
+/research-paper-writer
+```
+
+The skill will check your `paper/` folder structure, run a grill-me interview to build shared understanding, then guide you through writing each section one at a time.
+
+## Paper Project Structure
+
+Copy `research-paper-writer/paper-template/` into your project to bootstrap the expected layout:
+
+```bash
+cp -R research-paper-writer/paper-template /path/to/your/project/paper
+```
+
+This gives you:
+
+```
+paper/
+├── main.tex
+├── docs/              # drop source PDFs here (arXiv ID filenames preferred)
+├── sections_md/       # write markdown here — source of truth
+├── sections/          # generated .tex files — never edit manually
+├── figures/
+└── scripts/
+    ├── md_to_tex.sh       # pandoc: sections_md/ → sections/
+    └── export_overleaf.sh # regenerate .tex, then zip for Overleaf
+```
+
+Requires: `pandoc` (`brew install pandoc` or `apt install pandoc`).
+
+## Other AI Assistants
+
+**Codex:**
+
+```bash
+mkdir -p "$CODEX_HOME/skills"
+cp -R research-paper-writer "$CODEX_HOME/skills/"
+```
+
+**Gemini:**
 
 ```bash
 mkdir -p "$HOME/.gemini/skills"
-cp -R research-paper-writing "$HOME/.gemini/skills/"
+cp -R research-paper-writer "$HOME/.gemini/skills/"
 ```
-
-Then ask concrete tasks in Gemini (for example, rewriting an Abstract with claim-evidence checks).
 
 ## Credits
 
-Again, this repository is primarily based on Prof. Peng Sida (彭思达)'s open notes, while my work focuses on curation and Skills adaptation.
-Prof. Peng's original repository: https://github.com/pengsida/learning_research
+Core writing methodology by Prof. Peng Sida (彭思达).
+Original repository: https://github.com/pengsida/learning_research
 
 ## License
 
