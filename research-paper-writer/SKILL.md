@@ -1,6 +1,6 @@
 ---
 name: research-paper-writer
-description: End-to-end research paper writing assistant for ML/CV/NLP/systems papers. Runs a structured 7-phase workflow: interview the user to build shared paper understanding, build a reference index from source PDFs, track section status, write sections one at a time using section-specific guides, convert markdown to LaTeX via pandoc, and export a zip for Overleaf. Use when starting a new paper, drafting or revising any section, or preparing a submission-ready LaTeX package.
+description: End-to-end research paper writing assistant for ML/CV/NLP/systems papers. Runs a structured 7-phase workflow --> interview the user to build shared paper understanding, build a reference index from source PDFs, track section status, write sections one at a time using section-specific guides, convert markdown to LaTeX via pandoc, and export a zip for Overleaf. Use when starting a new paper, drafting or revising any section, or preparing a submission-ready LaTeX package.
 ---
 
 # Research Paper Writer

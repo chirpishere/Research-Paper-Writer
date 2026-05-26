@@ -59,25 +59,54 @@ cp -R research-paper-writer .claude/skills/
 
 Restart Claude Code. The skill appears automatically — no further configuration needed.
 
-## Usage
+## Quick Start
 
-In your Claude Code prompt:
+After completing installation above:
+
+**1. Set up your paper project folder**
+
+Navigate to your paper project directory and copy the template:
+
+```bash
+cd /path/to/your/paper/project
+cp -R "$HOME/.claude/skills/research-paper-writer/paper-template" ./paper
+```
+
+Install pandoc if you don't have it:
+
+```bash
+brew install pandoc       # macOS
+# or
+apt install pandoc        # Linux
+```
+
+**2. Run the skill**
+
+Open Claude Code in your paper project directory and type:
 
 ```
 /research-paper-writer
 ```
 
-The skill will check your `paper/` folder structure, run a grill-me interview to build shared understanding, then guide you through writing each section one at a time.
+The skill will verify the `paper/` folder structure, run a structured interview to build shared paper understanding, then guide you through writing each section one at a time.
 
-## Paper Project Structure
+**3. Write sections**
 
-Copy `research-paper-writer/paper-template/` into your project to bootstrap the expected layout:
+Edit markdown files in `paper/sections_md/`. When ready to sync to LaTeX:
 
 ```bash
-cp -R research-paper-writer/paper-template /path/to/your/project/paper
+bash paper/scripts/md_to_tex.sh
 ```
 
-This gives you:
+**4. Export for Overleaf**
+
+```bash
+bash paper/scripts/export_overleaf.sh
+```
+
+This produces a timestamped `overleaf_YYYYMMDD_HHMMSS.zip`. Upload via Overleaf → New Project → Upload Project.
+
+## Paper Project Structure
 
 ```
 paper/
@@ -90,8 +119,6 @@ paper/
     ├── md_to_tex.sh       # pandoc: sections_md/ → sections/
     └── export_overleaf.sh # regenerate .tex, then zip for Overleaf
 ```
-
-Requires: `pandoc` (`brew install pandoc` or `apt install pandoc`).
 
 ## Credits
 
